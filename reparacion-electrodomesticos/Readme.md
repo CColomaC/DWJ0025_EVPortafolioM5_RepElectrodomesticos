@@ -4,7 +4,7 @@
 
 ## Enunciado:
 
-### Una empresa de venta de servicios de reparación de electrodomésticos requiere permitir que sus clientes puedan registrar y revisar posteriormente el estado de sus ordenes de servicio. Las órdenes de servicio debe tener lo siguientes datos:
+### Una empresa de servicios de reparación de electrodomésticos requiere que sus clientes puedan registrar y revisar posteriormente el estado de sus ordenes de servicio. Las órdenes de servicio deben tener lo siguientes datos:
 
 - Nombre del cliente
 - Teléfono del cliente
