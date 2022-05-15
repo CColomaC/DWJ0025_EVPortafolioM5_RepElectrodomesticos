@@ -1,7 +1,7 @@
 .settings
-		build
-		.classpath
-		.project
+build
+.classpath
+.project
     
 # Compiled class file
 *.class
