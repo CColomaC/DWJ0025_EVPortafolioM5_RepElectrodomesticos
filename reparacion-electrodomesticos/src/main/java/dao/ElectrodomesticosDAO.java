@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import modelo.Cliente;
 import modelo.Electrodomestico;
 
 public interface ElectrodomesticosDAO {
