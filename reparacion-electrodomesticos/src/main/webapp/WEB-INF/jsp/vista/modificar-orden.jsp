@@ -88,7 +88,7 @@
 	
 				  
 				  <button type="submit" class="btn btn-success">Finalizar modificación</button> 
-				  <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-primary" role="button" data-bs-toggle="button">Volver</a>
+				  <a href="${pageContext.request.contextPath}/Index.jsp" class="btn btn-primary" role="button" data-bs-toggle="button">Volver</a>
 				</form>
 	
 			</div>
