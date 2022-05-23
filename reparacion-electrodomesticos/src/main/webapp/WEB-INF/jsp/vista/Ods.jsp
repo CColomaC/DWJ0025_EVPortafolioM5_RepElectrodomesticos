@@ -15,11 +15,11 @@
 					  <h3>Detalles del artefacto</h3>
 					  <div class="mb-3">
 					    <label class="form-label">Tipo de artefacto: </label>
-					    <input type="text" class="form-control" id="tipoArtefacto" name="tipoArtefacto" disabled value="${ods.electrodomestico_id.nombre}">
+					    <input type="text" class="form-control" id="tipoArtefacto" name="tipoArtefacto" disabled value="${ods.electrodomestico_id.tipo}">
 					  </div>
 					  <div class="mb-3">
 					    <label class="form-label">Problema del artefacto</label>
-					    <input type="text" class="form-control" id="problemaArtefacto" name="problemaArtefacto" disabled value="${ods.electrodomestico_id.falla}">
+					    <input type="text" class="form-control" id="problemaArtefacto" name="problemaArtefacto" disabled value="${ods.electrodomestico_id.problema}">
 					  </div>
 					  <div class="mb-3">
 					    <label class="form-label">Estado de la orden</label>
@@ -33,13 +33,13 @@
 					  </div>
 					  <div class="mb-3">
 					    <label class="form-label">Dirección del cliente</label>
-					    <input type="text" class="form-control" id="direccionCliente" name="direccionCliente" disabled value="${ods.electrodomestico_id.cliente_id.direccion}">
+					    <input type="text" class="form-control" id="direccionCliente" name="direccionCliente" disabled value="${ods.electrodomestico_id.cliente-id.direccion}">
 					  </div>
 					  <div class="mb-3">
 					    <label class="form-label">Teléfono del cliente</label>
 					    <input type="text" class="form-control" id="telefonoCliente" name="telefonoCliente" disabled value="${ods.electrodomestico_id.cliente_id.telefono}">
 					  </div>
-					  <a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-primary" role="button" data-bs-toggle="button">Volver</a>
+					  <a href="${pageContext.request.contextPath}/Index.jsp" class="btn btn-primary" role="button" data-bs-toggle="button">Volver</a>
 				</div>
 			</div>
 		</div>
