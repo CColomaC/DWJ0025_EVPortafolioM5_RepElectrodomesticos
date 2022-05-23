@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
     
 <!DOCTYPE html>
-<html lang="es">
+<html>
 	<head>
 		<meta charset="utf-8">
 		<title>Indice</title>
@@ -38,21 +37,21 @@
 	    <div class="d-flex text-muted pt-3">
 	      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Lista Clientes</title><rect width="100%" height="100%" fill="#2ead41"/><text x="50%" y="50%" fill="#2ead41" dy=".3em">32x32</text></svg>
 	      <p class="pb-3 mb-0 small lh-sm border-bottom">
-	        <a href="Controller?accion=listarcli"><b>Clientes</b></a>
+	        <a href="Controller?accion=listarclte"><b>Clientes</b></a>
 	      </p>
 	    </div>
 	    <div class="d-flex text-muted pt-3">
 	      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Lista Servicios</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
 	
 	      <p class="pb-3 mb-0 small lh-sm border-bottom">
-	        <a href="Controller?accion=listarpro"><b>Servicios</b></a>  
+	        <a href="Controller?accion=listarartefacto"><b>Servicios</b></a>  
 	      </p>
 	    </div>
 	    <div class="d-flex text-muted pt-3">
 	      <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Lista Ordenes</title><rect width="100%" height="100%" fill="#cc0605"/><text x="50%" y="50%" fill="#cc0605" dy=".3em">32x32</text></svg>
 	
 	      <p class="pb-3 mb-0 small lh-sm border-bottom">
-	        <a href="Controller?accion=listarodt"><b>Ordenes</b></a>  
+	        <a href="Controller?accion=listarods"><b>Ordenes</b></a>  
 	      </p>
 	    </div>
 	  </div>
