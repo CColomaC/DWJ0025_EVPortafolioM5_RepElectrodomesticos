@@ -16,7 +16,7 @@
 			<thead>
 				<tr>
 					<th class="col">ID</th>
-					<th class="col">Objeto</th>
+					<th class="col">Artefacto</th>
 					<th class="col">Estado</th>
 					<th class="col">Cliente asociado</th>
 					<th class="col">Fecha Solicitud</th>
@@ -25,23 +25,23 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="odt" items="${ods}">
+				<c:forEach var="ods" items="${ods}">
 					<tr>
 						<td><c:out value="${ods.id}"></c:out></td>
-						<td><c:out value="${ods.electrodomestico_id.nombre}"></c:out></td>
+						<td><c:out value="${ods.electrodomestico_id.tipo}"></c:out></td>
 						<td><c:out value="${ods.estado}"></c:out></td>
 						<td><c:out value="${ods.electrodomestico_id.cliente_id.nombre}"></c:out></td>
 						<td><c:out value="${ods.fechaSolicitud}"></c:out></td>
 						<td><c:out value="${ods.fechaActualizacionOrden}"></c:out></td>
 						<td>
 							<a href="Controller?accion=editar&amp;id=${ods.id}">Modificar</a>
-							<a href="Controller?accion=verODS&amp;id=${ods.id}">Ver ODS</a>
+							<a href="Controller?accion=verOds&amp;id=${ods.id}">Ver ODS</a>
 						</td>
 					</tr>			
 				</c:forEach>
 			</tbody>
 		</table>
-		<a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-primary" role="button" data-bs-toggle="button">Volver</a>
+		<a href="${pageContext.request.contextPath}/Index.jsp" class="btn btn-primary" role="button" data-bs-toggle="button">Volver</a>
 	</div>		
 
 	</body>
