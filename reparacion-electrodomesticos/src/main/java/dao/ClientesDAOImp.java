@@ -5,51 +5,67 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.NamingException;
 
-import modelo.Cliente;
+import modelo.Electrodomestico;
+import modelo.OrdenDeServicio;
 
-public class ClientesDAOImp implements ClientesDAO {
+public class OdsDAOImp implements OdsDAO {	
 	
+private ElectrodomesticosDAO electrodomesticosDAO;
+	
+	public OdsDAOImp(ElectrodomesticosDAO electrodomesticosDAO) {
+		this.electrodomesticosDAO = electrodomesticosDAO;
+	}
 	
 	@Override
-	public List<Cliente> findAllClientes() throws SQLException, NamingException {
+	public List<OrdenDeServicio> findAllOrdenesDeServicio() throws SQLException, NamingException {
 		try(
 				Connection conn = DBUtils.getConexion();
 				Statement st = conn.createStatement();
 			) {
-			ResultSet rs = st.executeQuery("SELECT * FROM cliente");
-			List<Cliente> clientes = new ArrayList<Cliente>();
+			
+			String query = "SELECT * FROM ordendeservicio";				
+			ResultSet rs = st.executeQuery(query);
+			List<OrdenDeServicio> ordenesDeServicio = new ArrayList<>();
 			while(rs.next()) {
-				int id = rs.getInt("id_cliente");
-				String nombre = rs.getString("Nombre");
-				String direccion = rs.getString("Direccion");
-				String telefono = rs.getString("Telefono");
-				Cliente cliente = new Cliente(id,nombre,direccion,telefono);
-				clientes.add(cliente);
+				int id 						 		 = rs.getInt("id_ods");
+				String estado 				 		 = rs.getString("estado");
+				LocalDate fechaSolicitud 		 	 = rs.getObject("fechasolicitud", LocalDate.class);
+				LocalDate fechaActualizacionOrden 	 = rs.getObject("fechaactualizacionorden", LocalDate.class);
+				int id_electrodomestico 			 = rs.getInt("id_electrodomestico");
+				
+				Electrodomestico electrodomestico = electrodomesticosDAO.findElectrodomesticoById(id_electrodomestico);
+
+				OrdenDeServicio ordenDeServicio		 = new OrdenDeServicio(id,estado,fechaSolicitud,fechaActualizacionOrden,electrodomestico);
+				ordenesDeServicio.add(ordenDeServicio);
 			}
-			return clientes;
+			return ordenesDeServicio;
 		}
 	}
-
+	
 	@Override
-	public Cliente findClienteById(int clienteId) throws SQLException, NamingException {
+	public OrdenDeServicio findOrdenDeServicioById(int odsId) throws SQLException, NamingException {
 		try(
 				Connection conn = DBUtils.getConexion();
-				PreparedStatement ps = conn.prepareStatement("SELECT * FROM Cliente WHERE id_cliente = ?");
+				PreparedStatement ps = conn.prepareStatement("SELECT * FROM ordendeservicio WHERE id_ods = ?");
 			) {
-			ps.setInt(1, clienteId);
+			ps.setInt(1, odsId);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				int id = rs.getInt("id_cliente");
-				String nombre = rs.getString("Nombre");
-				String direccion = rs.getString("Direccion");
-				String telefono = rs.getString("Telefono");
+				int id 						 		 = rs.getInt("id_ods");
+				String estado 				 		 = rs.getString("estado");
+				LocalDate fechaSolicitud 		 	 = rs.getObject("fechasolicitud", LocalDate.class);
+				LocalDate fechaActualizacionOrden 	 = rs.getObject("fechaactualizacionorden", LocalDate.class);
+				int id_electrodomestico 			 = rs.getInt("id_electrodomestico");
 				
-				return new Cliente(id,nombre,direccion,telefono);
+				Electrodomestico electrodomestico = electrodomesticosDAO.findElectrodomesticoById(id_electrodomestico);
+
+				return new OrdenDeServicio(id,estado,fechaSolicitud,fechaActualizacionOrden,electrodomestico);
 			}
 			
 		}
@@ -57,65 +73,52 @@ public class ClientesDAOImp implements ClientesDAO {
 	}
 
 	@Override
-	public void createCliente(Cliente cliente) throws SQLException, NamingException {
+	public void createOrdenDeServicio(OrdenDeServicio ods) throws SQLException, NamingException {
 		try(
 				Connection conn = DBUtils.getConexion();
-				PreparedStatement ps = conn.prepareStatement("INSERT INTO cliente(nombre, direccion, telefono) VALUES (?,?,?)");
+				PreparedStatement ps = conn.prepareStatement("INSERT INTO ordendeservicio(estado, fechasolicitud, fechaactualizacionorden, id_electrodomestico) VALUES (?,?,?,?)");
 
 			) {
-			ps.setString(1, cliente.getNombre());
-			ps.setString(2, cliente.getDireccion());
-			ps.setString(3, cliente.getTelefono());
+			ps.setString(1, ods.getEstado());
+			ps.setObject(2, ods.getFechaSolicitud());
+			ps.setObject(3, ods.getFechaActualizacionOrden());
+			ps.setInt(4, ods.getElectrodomestico_id().getId());
 			ps.executeUpdate();
 		}
 		
-		
 	}
 
 	@Override
-	public void editCliente(Cliente cliente) throws SQLException, NamingException {
+	public void editOrdenDeServicio(OrdenDeServicio ods) throws SQLException, NamingException {
 		try(
 				Connection conn = DBUtils.getConexion();
-				PreparedStatement ps = conn.prepareStatement("UPDATE cliente SET nombre = ?, direccion = ?, telefono = ? WHERE id_cliente = ?");
+				PreparedStatement ps = conn.prepareStatement("UPDATE ordendeservicio SET fechaactualizacionorden = ?, estado = ? WHERE id_ods = ?");
 			) {
 
-				ps.setString(1, cliente.getNombre());
-				ps.setString(2, cliente.getDireccion());
-				ps.setString(3, cliente.getTelefono());
-				ps.setInt(4, cliente.getId());
-				ps.executeUpdate();
-			} 
-		
-	}
-
-	@Override
-	public void deleteCliente(int clienteId) throws SQLException, NamingException {
-		try(
-				Connection conn = DBUtils.getConexion();
-				PreparedStatement ps = conn.prepareStatement("DELETE FROM cliente WHERE id_cliente = ?");
-			) {
-				ps.setInt(1, clienteId);
+				ps.setObject(1, LocalDate.now());
+				ps.setString(2, ods.getEstado());
+				ps.setInt(3, ods.getId());
 				ps.executeUpdate();
 			} 
 	}
 
 	@Override
-	public Cliente findLastCreatedCliente() throws SQLException, NamingException {
+	public void deleteOrdenDeServicio(int odsId) throws SQLException, NamingException {
 		try(
 				Connection conn = DBUtils.getConexion();
-				Statement st = conn.createStatement();
+				PreparedStatement ps = conn.prepareStatement("DELETE FROM ordendeservicio WHERE id_ods = ?");
 			) {
-			ResultSet rs = st.executeQuery("SELECT * FROM cliente ORDER BY id_cliente DESC LIMIT 1");
-			if(rs.next()) {
-				int id 				= rs.getInt("id_cliente");
-				String nombre 		= rs.getString("nombre");
-				String direccion 	= rs.getString("direccion");
-				String telefono 	= rs.getString("telefono");
-				return new Cliente(id,nombre,direccion,telefono);
-			}
-			
-		}
+				ps.setInt(1, odsId);
+				ps.executeUpdate();
+			} 
+	}
+
+
+	@Override
+	public OrdenDeServicio findLastCreatedOrdenDeServicio() throws SQLException, NamingException {
+		
 		return null;
+		
 	}
 
 }
