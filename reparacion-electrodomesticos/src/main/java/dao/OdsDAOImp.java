@@ -33,15 +33,15 @@ private ElectrodomesticosDAO electrodomesticosDAO;
 			ResultSet rs = st.executeQuery(query);
 			List<OrdenDeServicio> ordenesDeServicio = new ArrayList<>();
 			while(rs.next()) {
-				int id 						 		 = rs.getInt("id_ods");
-				String estado 				 		 = rs.getString("estado");
-				LocalDate fechaSolicitud 		 	 = rs.getObject("fechasolicitud", LocalDate.class);
-				LocalDate fechaActualizacionOrden 	 = rs.getObject("fechaactualizacionorden", LocalDate.class);
-				int id_electrodomestico 			 = rs.getInt("id_electrodomestico");
+				int id 					= rs.getInt("id_ods");
+				String estado 				= rs.getString("estado");
+				LocalDate fechaSolicitud 		= rs.getObject("fechasolicitud", LocalDate.class);
+				LocalDate fechaActualizacionOrden 	= rs.getObject("fechaactualizacionorden", LocalDate.class);
+				int id_electrodomestico 		= rs.getInt("id_electrodomestico");
 				
 				Electrodomestico electrodomestico = electrodomesticosDAO.findElectrodomesticoById(id_electrodomestico);
 
-				OrdenDeServicio ordenDeServicio		 = new OrdenDeServicio(id,estado,fechaSolicitud,fechaActualizacionOrden,electrodomestico);
+				OrdenDeServicio ordenDeServicio	= new OrdenDeServicio(id,estado,fechaSolicitud,fechaActualizacionOrden,electrodomestico);
 				ordenesDeServicio.add(ordenDeServicio);
 			}
 			return ordenesDeServicio;
@@ -57,11 +57,11 @@ private ElectrodomesticosDAO electrodomesticosDAO;
 			ps.setInt(1, odsId);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				int id 						 		 = rs.getInt("id_ods");
-				String estado 				 		 = rs.getString("estado");
-				LocalDate fechaSolicitud 		 	 = rs.getObject("fechasolicitud", LocalDate.class);
-				LocalDate fechaActualizacionOrden 	 = rs.getObject("fechaactualizacionorden", LocalDate.class);
-				int id_electrodomestico 			 = rs.getInt("id_electrodomestico");
+				int id 					= rs.getInt("id_ods");
+				String estado 				= rs.getString("estado");
+				LocalDate fechaSolicitud 		= rs.getObject("fechasolicitud", LocalDate.class);
+				LocalDate fechaActualizacionOrden 	= rs.getObject("fechaactualizacionorden", LocalDate.class);
+				int id_electrodomestico 		= rs.getInt("id_electrodomestico");
 				
 				Electrodomestico electrodomestico = electrodomesticosDAO.findElectrodomesticoById(id_electrodomestico);
 
@@ -75,8 +75,8 @@ private ElectrodomesticosDAO electrodomesticosDAO;
 	@Override
 	public void createOrdenDeServicio(OrdenDeServicio ods) throws SQLException, NamingException {
 		try(
-				Connection conn = DBUtils.getConexion();
-				PreparedStatement ps = conn.prepareStatement("INSERT INTO ordendeservicio(estado, fechasolicitud, fechaactualizacionorden, id_electrodomestico) VALUES (?,?,?,?)");
+			Connection conn = DBUtils.getConexion();
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO ordendeservicio(estado, fechasolicitud, fechaactualizacionorden, id_electrodomestico) VALUES (?,?,?,?)");
 
 			) {
 			ps.setString(1, ods.getEstado());
@@ -91,15 +91,15 @@ private ElectrodomesticosDAO electrodomesticosDAO;
 	@Override
 	public void editOrdenDeServicio(OrdenDeServicio ods) throws SQLException, NamingException {
 		try(
-				Connection conn = DBUtils.getConexion();
-				PreparedStatement ps = conn.prepareStatement("UPDATE ordendeservicio SET fechaactualizacionorden = ?, estado = ? WHERE id_ods = ?");
+			Connection conn = DBUtils.getConexion();
+			PreparedStatement ps = conn.prepareStatement("UPDATE ordendeservicio SET fechaactualizacionorden = ?, estado = ? WHERE id_ods = ?");
 			) {
 
-				ps.setObject(1, LocalDate.now());
-				ps.setString(2, ods.getEstado());
-				ps.setInt(3, ods.getId());
-				ps.executeUpdate();
-			} 
+			ps.setObject(1, LocalDate.now());
+			ps.setString(2, ods.getEstado());
+			ps.setInt(3, ods.getId());
+			ps.executeUpdate();
+		} 
 	}
 
 	@Override
