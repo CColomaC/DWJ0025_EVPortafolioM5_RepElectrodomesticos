@@ -54,8 +54,8 @@ public class ElectrodomesticosDAOImp implements ElectrodomesticosDAO {
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				int id 				= rs.getInt("id_electrodomestico");
-				String tipo 		= rs.getString("Tipo");
-				String problema 	= rs.getString("Problema");
+				String tipo 		= rs.getString("tipo");
+				String problema 	= rs.getString("problema");
 				int idCliente 		= rs.getInt("id_cliente");
 				Cliente cliente 	= clientesDAO.findClienteById(idCliente);
 				
