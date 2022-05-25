@@ -25,9 +25,9 @@ public class ClientesDAOImp implements ClientesDAO {
 			List<Cliente> clientes = new ArrayList<Cliente>();
 			while(rs.next()) {
 				int id = rs.getInt("id_cliente");
-				String nombre = rs.getString("Nombre");
-				String direccion = rs.getString("Direccion");
-				String telefono = rs.getString("Telefono");
+				String nombre = rs.getString("nombre");
+				String direccion = rs.getString("direccion");
+				String telefono = rs.getString("telefono");
 				Cliente cliente = new Cliente(id,nombre,direccion,telefono);
 				clientes.add(cliente);
 			}
@@ -39,15 +39,15 @@ public class ClientesDAOImp implements ClientesDAO {
 	public Cliente findClienteById(int clienteId) throws SQLException, NamingException {
 		try(
 				Connection conn = DBUtils.getConexion();
-				PreparedStatement ps = conn.prepareStatement("SELECT * FROM Cliente WHERE id_cliente = ?");
+				PreparedStatement ps = conn.prepareStatement("SELECT * FROM cliente WHERE id_cliente = ?");
 			) {
 			ps.setInt(1, clienteId);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				int id = rs.getInt("id_cliente");
-				String nombre = rs.getString("Nombre");
-				String direccion = rs.getString("Direccion");
-				String telefono = rs.getString("Telefono");
+				String nombre = rs.getString("nombre");
+				String direccion = rs.getString("direccion");
+				String telefono = rs.getString("telefono");
 				
 				return new Cliente(id,nombre,direccion,telefono);
 			}
