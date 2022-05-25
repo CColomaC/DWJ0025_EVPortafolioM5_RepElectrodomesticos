@@ -32,8 +32,8 @@ public class ElectrodomesticosDAOImp implements ElectrodomesticosDAO {
 			List<Electrodomestico> electrodomesticos = new ArrayList<>();
 			while(rs.next()) {
 				int id 				= rs.getInt("id_electrodomestico");
-				String tipo 		= rs.getString("Tipo");
-				String problema 	= rs.getString("Problema");
+				String tipo 		= rs.getString("tipo");
+				String problema 	= rs.getString("problema");
 				int idCliente 		= rs.getInt("id_cliente");
 				Cliente cliente 	= clientesDAO.findClienteById(idCliente);
 				
@@ -48,7 +48,7 @@ public class ElectrodomesticosDAOImp implements ElectrodomesticosDAO {
 	public Electrodomestico findElectrodomesticoById(int electrodomesticoId) throws SQLException, NamingException {
 		try(
 				Connection conn = DBUtils.getConexion();
-				PreparedStatement ps = conn.prepareStatement("SELECT * FROM Electrodomestico WHERE id_electrodomestico = ?");
+				PreparedStatement ps = conn.prepareStatement("SELECT * FROM electrodomestico WHERE id_electrodomestico = ?");
 			) {
 			ps.setInt(1, electrodomesticoId);
 			ResultSet rs = ps.executeQuery();
@@ -111,8 +111,8 @@ public class ElectrodomesticosDAOImp implements ElectrodomesticosDAO {
 			ResultSet rs = st.executeQuery("SELECT * FROM electrodomestico ORDER BY id_electrodomestico DESC LIMIT 1");
 			if(rs.next()) {
 				int id 				= rs.getInt("id_electrodomestico");
-				String tipo			= rs.getString("Tipo");
-				String problema		= rs.getString("Problema");
+				String tipo			= rs.getString("tipo");
+				String problema		= rs.getString("problema");
 				int idCliente 		= rs.getInt("id_cliente");
 				Cliente cliente 	= clientesDAO.findClienteById(idCliente);
 				return new Electrodomestico(id,tipo,problema,cliente);
@@ -127,14 +127,14 @@ public class ElectrodomesticosDAOImp implements ElectrodomesticosDAO {
 	public Electrodomestico findElectrodomesticoByClienteId(int clienteId) throws SQLException, NamingException {
 		try(
 				Connection conn = DBUtils.getConexion();
-				PreparedStatement ps = conn.prepareStatement("SELECT * FROM Electrodomestico WHERE id_cliente = ?");
+				PreparedStatement ps = conn.prepareStatement("SELECT * FROM electrodomestico WHERE id_cliente = ?");
 			) {
 			ps.setInt(1, clienteId);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				int id 				= rs.getInt("id_electrodomestico");
-				String tipo			= rs.getString("Tipo");
-				String problema		= rs.getString("Problema");
+				String tipo			= rs.getString("tipo");
+				String problema		= rs.getString("problema");
 				int idCliente 		= rs.getInt("id_cliente");
 				Cliente cliente 	= clientesDAO.findClienteById(idCliente);
 				
